@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arthur – An Ongoing Archive</title>
+
+  <style>
+
+    /* =============================================
+       GLOBAL RESET & BASE
+       ============================================= */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8f8f8;
+      color: #22333b;
+      font-size: 15.6px;
+      line-height: 1.5;
+      min-width: 1440px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    a:link    { color: #22333b; }
+    a:visited { color: #22333b; }
+    a:hover   { opacity: 0.7; }
+    a:active  { opacity: 0.5; }
+
+    img {
+      display: block;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    /* =============================================
+       LAYOUT
+       ============================================= */
+
+    .page-wrapper {
+      width: 1440px;
+      margin: 0 auto;
+      padding: 0 120px;
+    }
+
+    .container {
+      width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* =============================================
+       NAV
+       ============================================= */
+
+    .nav-shell {
+      position: sticky;
+      top: 12px;
+      z-index: 100;
+      width: 1440px;
+      margin: 0 auto;
+      padding: 0 120px;
+    }
+
+    nav.nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #fefefe;
+      border: 1px solid #f5f5f5;
+      border-radius: 12px;
+      box-shadow: 1px 1px 5px 0 rgba(0,0,0,0.07);
+      height: 54px;
+      padding: 0 16px;
+      overflow: hidden;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-logo {
+      font-size: 20px;
+      font-weight: 500;
+      color: #000;
+      letter-spacing: -1px;
+      line-height: 20px;
+    }
+
+    .nav-tagline {
+      font-size: 15.6px;
+      font-weight: 400;
+      color: #22333b;
+      margin-left: 10px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .nav-links li a {
+      font-size: 15.6px;
+      font-weight: 400;
+      color: #22333b;
+      line-height: 20px;
+    }
+
+    .nav-links li a:link    { color: #22333b; }
+    .nav-links li a:visited { color: #22333b; }
+    .nav-links li a:hover   { opacity: 0.7; }
+    .nav-links li a:active  { opacity: 0.5; }
+
+    /* =============================================
+       SECTION DIVIDER
+       ============================================= */
+
+    .section-divider {
+      width: 1200px;
+      margin: 0 auto;
+      height: 1px;
+      background-color: #e8e8e8;
+    }
+
+    /* =============================================
+       SECTION 1 — HERO
+       ============================================= */
+
+    #home {
+      padding-top: 60px;
+    }
+
+    .hero-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 130px;
+      padding-bottom: 80px;
+    }
+
+    .hero-text {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 546px;
+    }
+
+    .hero-gif-wrap {
+      width: 70px;
+      height: 62px;
+      border-radius: 100px;
+      overflow: hidden;
+    }
+
+    .hero-gif {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 100px;
+    }
+
+    .hero-h1 {
+      font-size: 31.6px;
+      font-weight: 500;
+      line-height: 38px;
+    }
+
+    .hero-h1-dark { color: #22333b; }
+    .hero-h1-gray { color: #6e6e6e; }
+
+    .hero-photo {
+      width: 248px;
+      height: 331px;
+      object-fit: cover;
+      border-radius: 7px;
+      flex-shrink: 0;
+    }
+
+    /* =============================================
+       SECTION 2 — RECENT INSPIRATIONS + OVERVIEW
+       ============================================= */
+
+    #design {
+      padding-top: 60px;
+      padding-bottom: 60px;
+    }
+
+    .section-heading-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 40px;
+    }
+
+    .section-heading-left {
+      font-size: 23.8px;
+      font-weight: 500;
+      color: #22333b;
+      line-height: 28.8px;
+    }
+
+    .section-heading-right {
+      font-size: 23.8px;
+      font-weight: 500;
+      color: #6e6e6e;
+      line-height: 28.8px;
+    }
+
+    .cards-row {
+      display: flex;
+      gap: 21px;
+      align-items: flex-start;
+    }
+
+    .card {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .card-img {
+      width: 100%;
+      height: 519px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 0 4.8px 0 rgba(0,0,0,0.17);
+    }
+
+    .card-gradient {
+      width: 100%;
+      height: 519px;
+      border-radius: 10px;
+      background: linear-gradient(196.34deg, #dfedff 39.33%, rgba(255,255,255,0) 120.98%);
+      box-shadow: 0 1px 4px 0 rgba(0,0,0,0.09);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card-gradient-text {
+      font-size: 27px;
+      font-weight: 500;
+      color: #000;
+      text-align: center;
+      line-height: 32.8px;
+    }
+
+    .card-label {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .card-label strong {
+      font-size: 16px;
+      font-weight: 500;
+      color: #22333b;
+      line-height: 17.7px;
+    }
+
+    .card-label span {
+      font-size: 13.7px;
+      font-weight: 400;
+      color: #22333b;
+      line-height: 15.9px;
+    }
+
+    .see-more-wrap {
+      text-align: center;
+      margin-top: 32px;
+    }
+
+    .see-more {
+      font-size: 15.6px;
+      font-weight: 500;
+      color: #3c559f;
+      line-height: 20px;
+    }
+
+    .see-more:link    { color: #3c559f; }
+    .see-more:visited { color: #3c559f; }
+    .see-more:hover   { opacity: 0.7; }
+    .see-more:active  { opacity: 0.5; }
+
+    .overview-inner {
+      display: flex;
+      gap: 31px;
+      align-items: flex-start;
+      margin-top: 60px;
+      padding-bottom: 100px;
+    }
+
+    .overview-left {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 616px;
+      flex-shrink: 0;
+    }
+
+    .overview-label {
+      font-size: 23.8px;
+      font-weight: 500;
+      color: #6e6e6e;
+      line-height: 28.8px;
+    }
+
+    .overview-heading {
+      font-size: 42.5px;
+      font-weight: 700;
+      color: #22333b;
+      line-height: 50.6px;
+    }
+
+    .overview-right {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 556px;
+    }
+
+    .interests-heading {
+      font-size: 23.8px;
+      font-weight: 500;
+      color: #22333b;
+      line-height: 28.8px;
+    }
+
+    .interests-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .interest-item {
+      font-size: 17.9px;
+      font-weight: 500;
+      color: #22333b;
+      border-bottom: 1px solid #000;
+      height: 37px;
+      display: flex;
+      align-items: center;
+      line-height: 20px;
+    }
+
+    /* =============================================
+       SECTION 3 — PEOPLE
+       ============================================= */
+
+    #people {
+      padding-top: 60px;
+      padding-bottom: 60px;
+    }
+
+    .inner-h1 {
+      font-size: 31.6px;
+      font-weight: 500;
+      color: #22333b;
+      line-height: 38px;
+      margin-bottom: 40px;
+    }
+
+    .person-block {
+      margin-bottom: 43px;
+    }
+
+    .person-name {
+      font-size: 20px;
+      font-weight: 500;
+      color: #000;
+      line-height: 38px;
+      margin-bottom: 11px;
+    }
+
+    .person-row {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      height: 457px;
+    }
+
+    .person-row-reversed {
+      flex-direction: row-reverse;
+    }
+
+    .person-img {
+      width: 456px;
+      height: 457px;
+      object-fit: cover;
+      border-radius: 14px;
+      flex-shrink: 0;
+    }
+
+    .person-img-cropped {
+      object-position: center top;
+    }
+
+    .person-aside {
+      flex: 1;
+      height: 457px;
+      background: linear-gradient(-24deg, rgba(254,254,254,0) 25%, rgb(254,254,254) 100%),
+                  linear-gradient(90deg, rgb(254,254,254) 0%, rgb(254,254,254) 100%);
+      border: 1px solid #fcfcfc;
+      border-radius: 12px;
+      box-shadow: 1px 1px 5px 0 rgba(0,0,0,0.07);
+      padding: 26px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .person-aside p {
+      font-size: 15.5px;
+      font-weight: 400;
+      color: #22333b;
+      line-height: 20px;
+    }
+
+    .person-handle {
+      font-size: 15.5px;
+      color: #22333b;
+      line-height: 20px;
+    }
+
+    /* =============================================
+       SECTION 4 — DESIGN GALLERY
+       ============================================= */
+
+    #gallery {
+      padding-top: 60px;
+      padding-bottom: 60px;
+    }
+
+    .design-row {
+      display: flex;
+      gap: 21px;
+      margin-bottom: 40px;
+      align-items: flex-start;
+    }
+
+    .design-item {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .design-img {
+      width: 100%;
+      height: 373px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+
+    .design-caption {
+      font-size: 14px;
+      font-weight: 500;
+      color: #cacaca;
+      line-height: 38px;
+    }
+
+    /* =============================================
+       SECTION 5 — NOTES
+       ============================================= */
+
+    #notes {
+      padding-top: 60px;
+      padding-bottom: 60px;
+    }
+
+    .learnings-heading-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 48px;
+    }
+
+    .learnings-heading-left {
+      font-size: 23.8px;
+      font-weight: 500;
+      color: #22333b;
+      line-height: 28.8px;
+    }
+
+    .learnings-heading-right {
+      font-size: 23.8px;
+      font-weight: 500;
+      color: #6e6e6e;
+      line-height: 28.8px;
+    }
+
+    .learnings-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 55px 47px;
+      margin: -47px -55px;
+    }
+
+    .learning-cell {
+      vertical-align: top;
+      width: 50%;
+    }
+
+    .learning-title {
+      font-size: 15.6px;
+      font-weight: 500;
+      color: #22333b;
+      line-height: 24px;
+      margin-bottom: 16px;
+    }
+
+    .learning-body {
+      font-size: 15.6px;
+      font-weight: 400;
+      color: #000;
+      line-height: 24px;
+    }
+
+    /* =============================================
+       FOOTER
+       ============================================= */
+
+    footer.footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #fefefe;
+      border: 1px solid #f5f5f5;
+      border-radius: 12px;
+      box-shadow: 2px 2px 7px 0 rgba(0,0,0,0.07);
+      height: 64px;
+      padding: 0 20px;
+      margin-top: 60px;
+      margin-bottom: 40px;
+      overflow: hidden;
+    }
+
+    .footer-left {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .footer-logo {
+      font-size: 20px;
+      font-weight: 500;
+      color: #000;
+      letter-spacing: -1px;
+      line-height: 20px;
+    }
+
+    .footer-copy {
+      font-size: 11.8px;
+      font-weight: 400;
+      color: #22333b;
+      line-height: 14.4px;
+    }
+
+    .footer-contact {
+      font-size: 15.6px;
+      font-weight: 400;
+      color: #22333b;
+      line-height: 20px;
+    }
+
+    .footer-contact:link    { color: #22333b; }
+    .footer-contact:visited { color: #22333b; }
+    .footer-contact:hover   { opacity: 0.7; }
+    .footer-contact:active  { opacity: 0.5; }
+
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <div class="nav-shell">
+    <nav class="nav">
+      <div class="nav-left">
+        <a href="#home" class="nav-logo">Arthur</a>
+        <span class="nav-tagline">An Ongoing Archive</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#design">Design</a></li>
+        <li><a href="#people">People</a></li>
+        <li><a href="#notes">Notes</a></li>
+      </ul>
+    </nav>
+  </div>
+
+
+  <!-- ============================================================
+       SECTION 1 — HERO
+       ============================================================ -->
+  <section id="home">
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-text">
+          <div class="hero-gif-wrap">
+            <img src="https://www.figma.com/api/mcp/asset/07e98361-95b8-408f-9682-d6fe7e715706"
+                 alt="heading animation" width="70" height="62" class="hero-gif" />
+          </div>
+          <h1 class="hero-h1">
+            <span class="hero-h1-dark">Not a portfolio,</span><br />
+            <span class="hero-h1-gray">a curated archive of my inspirations.</span>
+          </h1>
+        </div>
+        <img src="https://www.figma.com/api/mcp/asset/15e7691a-564b-420a-ac38-d0fdd98c52b4"
+             alt="Arthur" width="248" height="331" class="hero-photo" />
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SECTION 2 — RECENT INSPIRATIONS + OVERVIEW
+       ============================================================ -->
+  <section id="design">
+    <div class="container">
+
+      <div class="section-heading-row">
+        <h2 class="section-heading-left">Recent Inspirations.</h2>
+        <span class="section-heading-right">Across people, design, and culture.</span>
+      </div>
+
+      <div class="cards-row">
+        <div class="card">
+          <img src="https://www.figma.com/api/mcp/asset/987b9000-a6a5-4f02-9acd-3b33c98e1dd2"
+               alt="David Senra book cover" width="292" height="519" class="card-img" />
+          <div class="card-label">
+            <strong>David Senra</strong>
+            <span>People</span>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://www.figma.com/api/mcp/asset/c3150270-98e7-48e8-bc13-4a19ff524753"
+               alt="MOKK design tool screenshot" width="292" height="519" class="card-img" />
+          <div class="card-label">
+            <strong>MOKK</strong>
+            <span>Design</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-gradient">
+            <p class="card-gradient-text">Design<br />Trends</p>
+          </div>
+          <div class="card-label">
+            <strong>Design Trends</strong>
+            <span>Notes</span>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://www.figma.com/api/mcp/asset/929ffd36-386f-4c2a-b7f9-576df19e9813"
+               alt="Shovel Studio product photo" width="257" height="521" class="card-img" />
+          <div class="card-label">
+            <strong>Shovel Studio</strong>
+            <span>Design</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="see-more-wrap">
+        <a href="https://www.instagram.com/" class="see-more" target="_blank">See more</a>
+      </div>
+
+      <div class="overview-inner">
+        <div class="overview-left">
+          <p class="overview-label">Overview</p>
+          <h2 class="overview-heading">A personal archive of what's shaping my taste across fashion, design, and culture.</h2>
+        </div>
+        <div class="overview-right">
+          <p class="interests-heading">What I'm interested in.</p>
+          <div class="interests-list">
+            <div class="interest-item">Branding</div>
+            <div class="interest-item">Marketing</div>
+            <div class="interest-item">Founders</div>
+            <div class="interest-item">Design</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <div class="section-divider"></div>
+
+
+  <!-- ============================================================
+       SECTION 3 — PEOPLE
+       ============================================================ -->
+  <section id="people">
+    <div class="container">
+
+      <h2 class="inner-h1">People influencing how I think,</h2>
+
+      <div class="person-block">
+        <h3 class="person-name">David Senra</h3>
+        <div class="person-row">
+          <img src="https://www.figma.com/api/mcp/asset/5ce10ed4-f0ee-4e83-a9d6-3afcb187293d"
+               alt="David Senra portrait" width="456" height="456" class="person-img" />
+          <aside class="person-aside">
+            <p>Breaks down how great founders actually think and operate over long periods of time, not just during big moments. A lot of focus on obsession, patience, and committing fully to one thing instead of spreading attention. He consistently reinforces that building something meaningful takes years of repetition and focus. It removes the illusion of overnight success and replaces it with discipline. Listening to him shifts your mindset toward long-term thinking and doing fewer things better.</p>
+            <p class="person-handle">@davidsenra</p>
+          </aside>
+        </div>
+      </div>
+
+      <div class="person-block">
+        <h3 class="person-name">Blaze Smith</h3>
+        <div class="person-row person-row-reversed">
+          <aside class="person-aside">
+            <p>Pushes a raw, unconventional approach to design through Shovel Studio. The work feels intentional but not overpolished, which gives it a stronger identity. There's a clear focus on direction and taste rather than following trends or over-explaining ideas. It shows that design doesn't need to be perfect to be effective. More than anything, it proves that having a point of view matters more than trying to please everyone.</p>
+            <p class="person-handle">@shovel.studio</p>
+          </aside>
+          <img src="https://www.figma.com/api/mcp/asset/7fb45c2b-673e-4073-be99-e76ff8e685d3"
+               alt="Blaze Smith portrait" width="457" height="457" class="person-img" />
+        </div>
+      </div>
+
+      <div class="person-block">
+        <h3 class="person-name">Dan Alves</h3>
+        <div class="person-row">
+          <img src="https://www.figma.com/api/mcp/asset/144e74b6-89d0-4ece-86ef-102d77c537d9"
+               alt="Dan Alves portrait" width="457" height="457" class="person-img" />
+          <aside class="person-aside">
+            <p>Focuses on building brands with clarity, strong positioning, and purpose behind every decision. His transition from Mokk to Comunal shows a willingness to adapt and rethink direction instead of staying stuck. There's a clear emphasis on execution, not just ideas or aesthetics. It highlights how branding, product, and strategy all need to align. His approach reinforces that building something real means constantly refining and improving.</p>
+            <p class="person-handle">@dalves</p>
+          </aside>
+        </div>
+      </div>
+
+      <div class="person-block">
+        <h3 class="person-name">Frank Niu</h3>
+        <div class="person-row person-row-reversed">
+          <aside class="person-aside">
+            <p>Keeps things direct and practical when it comes to money, careers, and decision-making. Focuses heavily on playing the long game instead of chasing short-term wins or trends. He simplifies complex topics into clear, actionable ideas without overcomplicating them. There's a strong emphasis on using time well and making intentional choices. His perspective pushes you to think more critically about how you approach work and opportunities.</p>
+            <p class="person-handle">@niu_xiaofei</p>
+          </aside>
+          <img src="https://www.figma.com/api/mcp/asset/da80cdc1-a502-45a3-9aea-8d11e8292d30"
+               alt="Frank Niu portrait" width="458" height="457" class="person-img person-img-cropped" />
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <div class="section-divider"></div>
+
+
+  <!-- ============================================================
+       SECTION 4 — DESIGN GALLERY
+       ============================================================ -->
+  <section id="gallery">
+    <div class="container">
+
+      <h2 class="inner-h1">Some designs I've enjoyed lately,</h2>
+
+      <div class="design-row">
+        <div class="design-item">
+          <img src="https://www.figma.com/api/mcp/asset/8e4419a8-b626-49ec-a59a-9004802a42b9"
+               alt="Mokk website screenshot" width="373" height="373" class="design-img" />
+          <p class="design-caption">Mokk website</p>
+        </div>
+        <div class="design-item">
+          <img src="https://www.figma.com/api/mcp/asset/00c7d7ba-28ac-42ac-812e-7c4748d0806f"
+               alt="Macbook Neo concept" width="362" height="372" class="design-img" />
+          <p class="design-caption">Macbook Neo</p>
+        </div>
+        <div class="design-item">
+          <img src="https://www.figma.com/api/mcp/asset/8a16d5ea-b53b-4ff3-b38c-c100422f1064"
+               alt="COMUNAL by Dan Alves" width="373" height="372" class="design-img" />
+          <p class="design-caption">COMUNAL by Dan Alves</p>
+        </div>
+      </div>
+
+      <div class="design-row">
+        <div class="design-item">
+          <img src="https://www.figma.com/api/mcp/asset/4768c5ae-832c-4eb8-9c49-f68c6d9df892"
+               alt="Naked and Famous Denim jeans" width="362" height="372" class="design-img" />
+          <p class="design-caption">Naked &amp; Famous Denim</p>
+        </div>
+        <div class="design-item">
+          <img src="https://www.figma.com/api/mcp/asset/7b3cb3ff-2132-41a9-8e89-79714759dec1"
+               alt="Supreme Box Logo t-shirt" width="373" height="373" class="design-img" />
+          <p class="design-caption">Supreme Box Logo</p>
+        </div>
+        <div class="design-item">
+          <img src="https://www.figma.com/api/mcp/asset/704b8768-6d2f-4ee1-942b-21364d1b9649"
+               alt="Apple Liquid Glass UI" width="362" height="372" class="design-img" />
+          <p class="design-caption">Apple's Liquid Glass</p>
+        </div>
+      </div>
+
+      <div class="design-row">
+        <div class="design-item">
+          <img src="https://www.figma.com/api/mcp/asset/b2cfb86c-53d8-4695-990d-a6d997f78345"
+               alt="Old School Converse sneaker" width="374" height="373" class="design-img" />
+          <p class="design-caption">Old School Converse</p>
+        </div>
+        <div class="design-item">
+          <img src="https://www.figma.com/api/mcp/asset/67a9ecd2-69af-4e80-aee7-38e06441b1bc"
+               alt="Rimowa suitcase" width="362" height="362" class="design-img" />
+          <p class="design-caption">Rimowa Suitcase</p>
+        </div>
+        <div class="design-item">
+          <img src="https://www.figma.com/api/mcp/asset/5165558a-ab27-40b5-b32e-f547a26baed9"
+               alt="Maybach luxury car" width="372" height="372" class="design-img" />
+          <p class="design-caption">Maybach Cars</p>
+        </div>
+      </div>
+
+      <div class="see-more-wrap">
+        <a href="https://www.instagram.com/" class="see-more" target="_blank">See more</a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <div class="section-divider"></div>
+
+
+  <!-- ============================================================
+       SECTION 5 — NOTES
+       ============================================================ -->
+  <section id="notes">
+    <div class="container">
+
+      <h2 class="inner-h1">What I've learned so far,</h2>
+
+      <div class="person-block">
+        <h3 class="person-name">Arthur Santos</h3>
+        <div class="person-row">
+          <img src="https://www.figma.com/api/mcp/asset/592a3f87-ea86-4a0e-ac5d-0eb0cce925bc"
+               alt="Arthur Santos portrait" width="457" height="457" class="person-img" />
+          <aside class="person-aside">
+            <p>I'm drawn to things that feel intentional, whether it's in fashion, design, or how something is built. Most of what I like comes down to strong direction, simplicity, and knowing what to leave out. I pay attention to how ideas translate into real execution, not just how they look. A lot of my perspective comes from studying brands, creators, and how they move over time. This archive is a way to track that and make sense of what actually sticks.</p>
+            <p class="person-handle">Arthur Santos</p>
+          </aside>
+        </div>
+      </div>
+
+      <div class="learnings-heading-row">
+        <h3 class="learnings-heading-left">Things I've learned lately</h3>
+        <span class="learnings-heading-right">We look to maintain ongoing relationships.</span>
+      </div>
+
+      <table class="learnings-table">
+        <tbody>
+          <tr>
+            <td class="learning-cell">
+              <h4 class="learning-title">Taste &gt; Trends</h4>
+              <p class="learning-body">Trends move fast and are easy to copy, which makes most things feel the same. Strong taste takes longer to build but gives your work a clear identity. Over time, taste compounds and becomes way more valuable than chasing what's popular.</p>
+            </td>
+            <td class="learning-cell">
+              <h4 class="learning-title">Execution beats ideas</h4>
+              <p class="learning-body">Ideas don't mean much without action behind them. A simple idea executed well will always beat a great idea that never gets built. Finishing things consistently is what actually moves you forward.</p>
+            </td>
+          </tr>
+          <tr>
+            <td class="learning-cell">
+              <h4 class="learning-title">Less, but better</h4>
+              <p class="learning-body">Most work gets worse when you keep adding to it. Cutting things down forces clarity and makes what's left stronger. Simplicity isn't basic—it's usually harder to get right.</p>
+            </td>
+            <td class="learning-cell">
+              <h4 class="learning-title">Consistency wins long-term</h4>
+              <p class="learning-body">One good result doesn't matter if you can't repeat it. Showing up and doing the work over time builds real progress. Consistency compounds, even when it feels slow.</p>
+            </td>
+          </tr>
+          <tr>
+            <td class="learning-cell">
+              <h4 class="learning-title">Direction &gt; Perfection</h4>
+              <p class="learning-body">Having a clear point of view matters more than making everything perfect. Work with strong direction stands out, even if it's a bit rough. Trying to please everyone usually weakens the result.</p>
+            </td>
+            <td class="learning-cell">
+              <h4 class="learning-title">Attention is earned</h4>
+              <p class="learning-body">People don't care unless something actually grabs them. Good work makes someone stop, even for a second. If it blends in, it might as well not exist.</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </section>
+
+
+  <!-- FOOTER -->
+  <div class="page-wrapper">
+    <footer class="footer">
+      <div class="footer-left">
+        <span class="footer-logo">Arthur</span>
+        <span class="footer-copy">©2026</span>
+      </div>
+      <a href="mailto:asantos@uwaterloo.ca" class="footer-contact">Contact</a>
+    </footer>
+  </div>
+
+</body>
+</html>
